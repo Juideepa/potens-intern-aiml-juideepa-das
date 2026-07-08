@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What is the initial response time for a Severity 1 support ticket?",
+    "ground_truth": "Severity 1 support tickets receive an initial response within 30 minutes.",
+    "expected_sources": ["support_policy"]
+  },
+  {
+    "question": "How long is the refund request window?",
+    "ground_truth": "Customers may request a refund within 14 calendar days of purchase.",
+    "expected_sources": ["billing_policy"]
+  },
+  {
+    "question": "How long are application logs retained?",
+    "ground_truth": "Application logs are retained for 90 days.",
+    "expected_sources": ["data_retention_policy"]
+  },
+  {
+    "question": "When must the security lead be notified during a security incident?",
+    "ground_truth": "The security lead must be notified within 15 minutes.",
+    "expected_sources": ["security_runbook"]
+  },
+  {
+    "question": "What uptime commitment do enterprise customers receive?",
+    "ground_truth": "Enterprise customers receive a monthly uptime commitment of 99.9 percent.",
+    "expected_sources": ["enterprise_sla"]
+  },
+  {
+    "question": "Who can approve refunds?",
+    "ground_truth": "Only finance can approve refunds.",
+    "expected_sources": ["billing_policy", "support_policy"]
+  },
+  {
+    "question": "How often are customer-facing updates posted during Severity 1 incidents?",
+    "ground_truth": "Customer-facing updates are maintained every 60 minutes.",
+    "expected_sources": ["support_policy"]
+  },
+  {
+    "question": "What happens to deleted customer documents?",
+    "ground_truth": "They enter a 30 day recovery window, then are permanently removed from active storage.",
+    "expected_sources": ["data_retention_policy"]
+  },
+  {
+    "question": "What information must a customer notification include after unauthorized data access?",
+    "ground_truth": "It must describe what happened, involved information, action taken, and protective steps.",
+    "expected_sources": ["security_runbook"]
+  },
+  {
+    "question": "Do support policy and enterprise SLA conflict on Severity 1 response time?",
+    "ground_truth": "Yes. The support policy says 30 minutes, while the enterprise SLA says 15 minutes for enterprise customers.",
+    "expected_sources": ["support_policy", "enterprise_sla"]
+  }
+]

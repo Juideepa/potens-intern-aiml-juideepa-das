@@ -1,0 +1,12 @@
+streamlit==1.54.0
+fastapi
+uvicorn
+langchain==1.2.10
+langchain-community==0.4.1
+langchain-core==1.2.11
+langchain-groq==1.1.2
+langchain-google-genai==4.2.0
+langchain-text-splitters==1.1.0
+faiss-cpu==1.13.2
+pypdf
+python-dotenv
