@@ -6,13 +6,13 @@ The project includes:
 
 - A purple and white Streamlit UI for document ingestion, asking questions, and contradiction checks.
 - A FastAPI API with `/ask` and `/contradict` endpoints.
-- A bundled five-document sample corpus in `sample_documents/`.
+- A bundled five-document sample set in `sample_documents/`.
 - A small 10-question evaluation set in `eval_set.json`.
 - No silent hallucination: if retrieved evidence is weak or missing, the app says the documents do not cover the question.
 
-## Sample Corpus
+## Sample Documents
 
-The included corpus contains five markdown documents:
+The included sample document set contains five markdown documents:
 
 - `support_policy.md`
 - `billing_policy.md`
@@ -43,6 +43,15 @@ The provided documents do not cover this question.
 
 The app also computes a simple confidence score from FAISS retrieval distances. Low-confidence retrieval is gated before generation and flagged for human review.
 
+## Design Decisions
+
+- Streamlit is used for the main interface because it keeps the document upload, retrieval controls, and answer/citation display simple to run locally.
+- FastAPI is included separately so the same RAG pipeline can be called from scripts, tests, or other applications.
+- FAISS is used as the local vector store because it is lightweight and does not require a hosted database for this project.
+- Google Gemini embeddings are used for semantic retrieval, while the Groq-hosted chat model is used for answer generation.
+- The app requires at least five uploaded documents so retrieval and contradiction checks are tested against a meaningful multi-document set.
+- Citations are attached to every answer using source file, document ID, page, chunk ID, snippet, and retrieval score so responses can be audited.
+
 ## Requirements Mapping
 
 | Requirement | Implementation |
@@ -60,14 +69,21 @@ The app also computes a simple confidence score from FAISS retrieval distances. 
 
 ## Setup
 
-Create a `.env` file in the project folder:
+Create a `.env` file in the project folder. You can copy the variable names from `.env.example`:
 
 ```env
 groq_api_key=your_groq_key
 google_api_key=your_google_key
 ```
 
-Install dependencies:
+Do not commit your real `.env` file. It contains local secrets and is ignored by Git.
+
+Create and activate a virtual environment, then install dependencies:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
 
 ```powershell
 pip install -r requirements.txt
@@ -81,7 +97,7 @@ streamlit run app.py
 
 In the sidebar, choose either:
 
-- `Sample corpus` and click `Build sample corpus`
+- `Sample documents` and click `Build sample documents`
 - `Upload documents` and upload at least five supported files
 
 ## Run The API
@@ -145,3 +161,19 @@ Content-Type: application/json
 ```
 
 `/contradict` returns reasoning plus citations from both documents.
+
+## Next Steps
+
+- Add automated tests for document loading, chunking, confidence gating, and API response shapes.
+- Add a small evaluation runner that scores answers against `eval_set.json`.
+- Persist vector indexes between runs so large uploaded document sets do not need to be rebuilt every session.
+- Add authentication or rate limiting before deploying the FastAPI service publicly.
+- Improve contradiction detection with a structured claim extraction step.
+
+## AI Usage
+
+AI tools were used during development and documentation:
+
+- VS Code Codex was used to help write and complete the code for this project.
+- It helped build and polish the Streamlit app, FastAPI endpoints, RAG pipeline structure, document loading/chunking flow, citation handling, and README documentation.
+- VS Code Codex was also used to prepare the repository for GitHub by adding a safer `.gitignore`, creating a non-secret `.env.example` template, and removing generated/local files such as logs and `__pycache__` files from Git tracking.
