@@ -9,6 +9,13 @@ The project includes:
 - A bundled five-document sample set in `sample_documents/`.
 - A small 10-question evaluation set in `eval_set.json`.
 - No silent hallucination: if retrieved evidence is weak or missing, the app says the documents do not cover the question.
+## Live Demo
+
+You can use the application directly without any local setup by visiting the Streamlit app:
+
+**🔗 https://potens-intern-aiml-juideepa-das-ssdeuihsfwxlpkzestp2le.streamlit.app/**
+
+Simply open the link, process the sample documents or upload your own documents, and start asking questions.
 
 ## Sample Documents
 
