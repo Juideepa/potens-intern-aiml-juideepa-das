@@ -106,61 +106,17 @@ In the sidebar, choose either:
 uvicorn api:app --reload
 ```
 
-Health check:
+After the server starts, open the interactive API documentation at:
 
-```http
-GET http://127.0.0.1:8000/health
+```text
+http://127.0.0.1:8000/docs
 ```
 
-Ask endpoint:
+The API includes:
 
-```http
-POST http://127.0.0.1:8000/ask
-Content-Type: application/json
-
-{
-  "question": "What is the refund window?",
-  "top_k": 5
-}
-```
-
-Contradiction endpoint:
-
-```http
-POST http://127.0.0.1:8000/contradict
-Content-Type: application/json
-
-{
-  "document_id_a": "support_policy",
-  "document_id_b": "enterprise_sla",
-  "topic": "Severity 1 initial response time",
-  "top_k": 8
-}
-```
-
-## API Response Shape
-
-`/ask` returns:
-
-```json
-{
-  "answer": "Answer with inline citation markers.",
-  "confidence": 0.72,
-  "needs_human_review": false,
-  "citations": [
-    {
-      "source_file": "billing_policy.md",
-      "document_id": "billing_policy",
-      "page": "n/a",
-      "chunk": "chunk-1",
-      "snippet": "Customers may request a refund within 14 calendar days...",
-      "retrieval_score": 0.4312
-    }
-  ]
-}
-```
-
-`/contradict` returns reasoning plus citations from both documents.
+- `GET /health` to check whether the server is running.
+- `POST /ask` to ask questions about the loaded documents.
+- `POST /contradict` to compare two documents on a specific topic.
 
 ## Next Steps
 
